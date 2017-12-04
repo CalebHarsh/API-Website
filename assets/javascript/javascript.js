@@ -1,6 +1,8 @@
 $(document).ready(function() {
     //global variables 
-    var choices = ["cats", "loops", "donuts", "rabbits", "monster"];
+    var choices = ["The Office", "Parks & Recreation", "How I Met Your Mother", "Stranger Things", "Supernatural"];
+    var more = 0;
+    var lookUp = "";
     var setUpBtns = function () {
         $(".button-list").empty();
         choices.forEach(element => {
@@ -11,10 +13,10 @@ $(document).ready(function() {
             newBtn.appendTo(".button-list");
         });
     }
-    var getPictures = function (lookUp) {
+    var getPictures = function () {
         var ratings = $("#rating-limit").val();
         console.log(ratings);
-        var queryURL = "http://api.giphy.com/v1/gifs/search?q="  + lookUp + "&api_key=dc6zaTOxFJmzC&limit=10&rating=" + ratings;
+        var queryURL = "http://api.giphy.com/v1/gifs/search?q="  + lookUp + "&api_key=dc6zaTOxFJmzC&limit=10&rating=" + ratings + "&offset=" + more;
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -24,6 +26,7 @@ $(document).ready(function() {
         });
     }
     var displayImages = function (one) {
+        $(".show-button").empty();
         one.forEach(element => {
             var imageCard = $("<div>");
             imageCard.addClass("card");
@@ -41,16 +44,24 @@ $(document).ready(function() {
             rates.appendTo(newCardBody);
             imageCard.appendTo($(".card-columns"));
         });
+        var showMoreBtn = $("<button>");
+        showMoreBtn.attr("id", "show-more");
+        showMoreBtn.addClass("btn btn-secondary");
+        showMoreBtn.text("Show More");
+        showMoreBtn.appendTo(".show-button");
     }
     $("#go").on("click", function () {
         var newElem = $("#search").val().trim();
         choices.push(newElem);
+        getPictures(newElem);
         setUpBtns();
     });
     $(".button-list").on("click", ".element", function () {
         $(".card-columns").empty();
         console.log($(this).attr("data-name"));
-        getPictures($(this).attr("data-name"));
+        lookUp = $(this).attr("data-name");
+        getPictures();
+        more = 0;
     });
     $(".card-columns").on("click", ".gifs", function () {
         var gifURL = $(this).data();
@@ -63,6 +74,10 @@ $(document).ready(function() {
             $(this).attr("src", gifURL.fixed_width_still.url);
         }
         
+    });
+    $(".show-button").on("click", "#show-more", function () {
+        more = more + 10;
+        getPictures();
     });
     setUpBtns();
  });
