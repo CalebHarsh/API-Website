@@ -1,6 +1,6 @@
 $(document).ready(function() {
     //global variables 
-    var choices = ["The Office", "Parks & Recreation", "How I Met Your Mother", "Stranger Things", "Supernatural", "Frasier", "Magnum PI", "Micheal Scott",
+    var choices = ["The Office", "Parks & Recreation", "How I Met Your Mother", "Barney Stinson", "Stranger Things", "Supernatural", "Frasier", "Magnum PI", "Micheal Scott",
                     "Ron Swanson", "Marvel", "Justice League", "Star Wars", "Han Solo", "Batman"];
     var more = 0;
     var lookUp = "";
@@ -52,10 +52,13 @@ $(document).ready(function() {
         showMoreBtn.appendTo(".show-button");
     }
     $("#go").on("click", function () {
-        var newElem = $("#search").val().trim();
-        choices.push(newElem);
-        getPictures(newElem);
+        lookUp = $("#search").val().trim();
+        choices.push(lookUp);
+        more = 0;
+        $(".card-columns").empty();
+        getPictures();
         setUpBtns();
+
     });
     $(".button-list").on("click", ".element", function () {
         $(".card-columns").empty();
