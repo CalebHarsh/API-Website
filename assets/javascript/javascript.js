@@ -1,6 +1,7 @@
 $(document).ready(function() {
     //global variables 
-    var choices = ["The Office", "Parks & Recreation", "How I Met Your Mother", "Stranger Things", "Supernatural"];
+    var choices = ["The Office", "Parks & Recreation", "How I Met Your Mother", "Stranger Things", "Supernatural", "Frasier", "Magnum PI", "Micheal Scott",
+                    "Ron Swanson", "Marvel", "Justice League", "Star Wars", "Han Solo", "Batman"];
     var more = 0;
     var lookUp = "";
     var setUpBtns = function () {
