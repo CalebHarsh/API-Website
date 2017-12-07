@@ -17,7 +17,7 @@ $(document).ready(function() {
     var getPictures = function () {
         var ratings = $("#rating-limit").val();
         console.log(ratings);
-        var queryURL = "http://api.giphy.com/v1/gifs/search?q="  + lookUp + "&api_key=dc6zaTOxFJmzC&limit=10&rating=" + ratings + "&offset=" + more;
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q="  + lookUp + "&api_key=dc6zaTOxFJmzC&limit=10&rating=" + ratings + "&offset=" + more;
         $.ajax({
             url: queryURL,
             method: "GET"
